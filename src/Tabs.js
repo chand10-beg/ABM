@@ -15,6 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import CustomizedTables from './AccessComponent'
+import DepartmentRole from './Department';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -64,24 +65,16 @@ export default function SimpleTabs() {
   
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+      
           <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
             <Tab  label="Permissions" {...a11yProps(0)} />
-            <Tab label="Approval Matrix" {...a11yProps(1)} />
+            <Tab  label="Approval Matrix" {...a11yProps(1)} />
             {/* <Tab label="Item Three" {...a11yProps(2)} /> */}
           </Tabs>
-        </AppBar>
+  
         <TabPanel value={value} index={0}>
-            <Grid container direction="column"><Grid item xs={2}><Button startIcon={<AddBoxIcon/>} style={{background: '#663399', color: 'white'}} variant="outlined" >Add Role</Button>
-            <IconButton aria-label="delete" className={classes.margin}>
-          <EditIcon fontSize="small" />
-          </IconButton>   
-            <IconButton aria-label="delete" className={classes.margin}>
-          <DeleteIcon fontSize="small" />
-        </IconButton>
-        </Grid><Grid item xs={10}><CustomizedTables/></Grid> </Grid>
-        
-        </TabPanel>
+            <DepartmentRole/>
+        </TabPanel> 
         <TabPanel value={value} index={1}>
           Approval Matrix
         </TabPanel>

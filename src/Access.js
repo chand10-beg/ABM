@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 const access = props => {
     return(
-        <div>im the best</div>
+        <div>Access wil come up here</div>
     )
 }
 export default access;

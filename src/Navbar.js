@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import PropTypes from 'prop-types';
 import { BiShieldQuarter } from 'react-icons/bi';
 import { VscOrganization } from 'react-icons/vsc';
 import AppBar from '@material-ui/core/AppBar';
+import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -53,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
+  
   drawerPaper: {
     width: drawerWidth,
   },
@@ -64,22 +67,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AppsBar =(props) =>{
+const AppsBar =(props, {defaultActive}) =>{
+  const [activeIndex, setActiveIndex] = useState(defaultActive || 0);
+  const [colorP, setcolorP] = useState("white");
   const { history } = props;
   const {window} = props;
   console.log(props)
+  const changecolor = () =>{
+    setcolorP("black")
+  }
 
   const classes = useStyles();
 
   const itemsList = [
     {
         text: 'Projects',
-      icon: <AiOutlineQuestionCircle size='1.7rem'/>,
-      onClick:  () => history.push('/project')
+      icon: <AccountTreeIcon size='1.7rem'/>,
+      onClick:  () => history.push('/project'),
+
       },
 {
   text: 'Organization',
-  icon: <VscOrganization size='1.7rem'/>
+  icon: <VscOrganization size='1.7rem'/>,
+  onClick:  () => history.push('/Org')
 
 },
 {
@@ -93,63 +103,25 @@ const AppsBar =(props) =>{
   return (
       <div>
       
-      {/* <AppBar style={{background: 'white'}} position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            color="grey"
-        
-            aria-label="open drawer"
-            edge="end"
-           
-         
-          >
-            <MenuIcon />
-          </IconButton>
-         
-          <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                style={{marginLeft: '90%'}}
-                color="grey"
-              >
-                <AccountCircle/>
-                              </IconButton>
-                          
-                              <IconButton aria-label="show 11 new notifications" color="grey">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <IconButton color="grey">
-          <Badge color="secondary">
-            <AiOutlineQuestionCircle/>
-          </Badge>
-        </IconButton>
-        <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                style={{marginLeft: '90%'}}
-                color="grey"
-              >
-                <AccountCircle/>
-                              </IconButton>
-                           
-        </Toolbar>
-      </AppBar> */}
+   
 
     <Drawer variant="permanent" className={classes.drawer}>
-    <div className={classes.toolbar} />
+    <div style={{display: 'flex', paddingLeft: '1rem'}} className={classes.toolbar}>
+      <span style={{paddingTop:'1rem', paddingRight: '1rem'}}> <DeveloperModeIcon/></span>
+      <h2 style={{padding: '0', margin: '0', paddingTop:'1rem', color: '#4B0082', fontFamily: 'montserrat'}}> MYSITE</h2>
+     
+      </div>
       <Divider />
      <List stye={{fontFamily: 'Verdana, sans-serif'}}>
        {itemsList.map((item, index) => {
            const {text,icon, onClick} = item;
            return(
-          <ListItem button key={text} onClick={onClick}>
+            
+          <ListItem   key={text} onClick={() => { onClick(); setActiveIndex(index);}} style={{backgroundColor: index === activeIndex ? '#b19cd9': 'white',borderLeft : index === activeIndex ? 'solid 4px	#4B0082': 'white'}}>
               {icon && <ListItemIcon>{icon}</ListItemIcon>}
             <ListItemText primary={text} />
           </ListItem>
+             
         )})}
 
       </List>

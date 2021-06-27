@@ -6,6 +6,7 @@ import access from './Access';
 import project from './Project';
 import  AppsBar  from './Navbar';
 import { makeStyles } from "@material-ui/core/styles";
+import Organization from './Organization';
 
 const useStyles = makeStyles({
   container: {
@@ -23,6 +24,7 @@ function App() {
      <Switch>
        <Route exact path="/" component={access}/>
        <Route exact path="/project" component={project}/>
+       <Route exact path="/Org" component={Organization}/>
      </Switch>
      </BrowserRouter>
     </div>
